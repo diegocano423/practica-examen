@@ -1,0 +1,37 @@
+<section class="container">
+    <section class="col-md-6">
+        <h2>Add a contact!</h2>
+        <form name="contactForm" novalidate="novalidate" class="form-group>">
+        	<div class="form-group">
+                <label for="contact">Contact Name</label>
+                <input type="text" name="contact" ng-model="contactName" required="required" class="form-control">
+                <span ng-show="!contactForm.contact.$valid &amp;&amp; contactForm.contact.$dirty" class="text-danger">The name field is required.</span>
+            </div>
+            <div class="form-group">
+                <label for="number">Contact Number</label>
+                <input type="number" name="number" ng-model="contactNumber" required="required" class="form-control">
+                <span ng-show="!contactForm.number.$valid &amp;&amp; contactForm.number.$dirty" class="text-danger">The number field is required.</span>
+        	</div>
+        	<div class="form-group">
+                <button ng-click="addContact()" ng-disabled="!contactForm.$valid" class="btn btn-default">Add Contact</button>
+        	</div>
+        </form>
+    </section>
+    <section ng-show="allContacts.length > 0">
+        <h2>Your Contacts</h2>
+        <form class="form-group" role="search">
+            <p class="input-group">
+                <input type="text" class="form-control" ng-model="filter.name" placeholder="Search contacts...">
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </p>
+        </form>
+        <section class="col-md-6">
+            <section ng-repeat="addedContacts in allContacts | filter: filter.name | orderBy:'-name'">
+                <ul class="list-group">
+                    <li class="list-group-item"><a ng-href="/contact/{{addedContacts.id}}">{{addedContacts.name}}</a></li>
+                </ul>    
+        </section>
+    </section>
+</section>
